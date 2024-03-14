@@ -22,7 +22,7 @@ const Courses = () => {
     // console.log(courses);
     return (
         <>
-        <div>
+        <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 my-24">
 
             {
                 courses.map( (element) => <Course key={element.id} courses={element} />)
