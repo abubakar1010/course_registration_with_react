@@ -20,11 +20,40 @@ const Courses = () => {
 
         callApi()
     },[])
-    const [contentName, setContentName] = useState('')
 
-    const handleContent = () => {
+    const [remaining, setRemaining] = useState(15)
+
+    const [contentName, setContentName] = useState([])
+
+    const [contentPrice, setContentPrice] = useState(0)
+
+    const [contentCredit, setContentCredit] = useState (0)
 
 
+    
+
+    const handleContent = (name,price,credit) => {
+
+        
+        if ( credit > remaining) {
+            return alert('oops! you are able to select maximum 15 credit hour')
+        }
+        const isHad = contentName.find( element => element === name)
+        if (isHad) {
+            return alert('oops! You don not have able to select a particular content in multiple time ')
+        }
+        const maxCreditHours = remaining - parseInt(credit)
+        setRemaining(maxCreditHours)
+        const contents = [...contentName,name]
+        setContentName(contents)
+
+        const updatedPrice = contentPrice + parseInt(price)
+
+        const updatedCredit = contentCredit + parseInt(credit)
+
+
+        setContentPrice( updatedPrice )
+        setContentCredit( updatedCredit )
 
     }
     return (
@@ -40,7 +69,7 @@ const Courses = () => {
             </div>
 
             <div>
-            <Cart />
+            <Cart contentName={contentName} contentPrice={contentPrice} contentCredit={contentCredit} remaining={remaining}  />
             </div>
         </div>
             
